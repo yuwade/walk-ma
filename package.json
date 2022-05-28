@@ -1,7 +1,7 @@
 {
-  "name": "@thewizardbear/maze_generator",
-  "version": "0.4.0",
-  "description": "A deno-compatible package for maze generation",
+  "name": "walk-ma",
+  "version": "1.0.0",
+  "description": "A deno-compatible package for walk-ma",
   "exports": "./mod.js",
   "type": "module",
   "directories": {
@@ -12,27 +12,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheWizardBear/maze_generator.git"
+    "url": "git+https://github.com/yuwade/walk-ma.git"
   },
-  "keywords": [
-    "maze",
-    "maze-generation",
-    "maze-generator",
-    "maze-algorithms",
-    "deno",
-    "deno-module",
-    "mazes",
-    "maze-maker",
-    "maze-generation-algorithms",
-    "generator"
-  ],
+  "keywords": [],
   "author": "The Wizard Bear",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TheWizardBear/maze_generator/issues"
-  },
-  "homepage": "https://github.com/TheWizardBear/maze_generator#readme",
-  "dependencies": {
-    "node-fetch": ">=2.6.1"
-  }
+  "license": "MIT"
 }
