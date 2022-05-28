@@ -167,8 +167,8 @@ class Maze {
   }
 
   getSolution(
-    start = this.entrance,
-    finish = this.exit,
+    start = this.algorithm.entrance,
+    finish = this.algorithm.exit,
   ) {
     return solve(this, start, finish);
   }

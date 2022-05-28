@@ -2,7 +2,8 @@
   "name": "@thewizardbear/maze_generator",
   "version": "0.4.0",
   "description": "A deno-compatible package for maze generation",
-  "main": "mod.js",
+  "exports": "./mod.js",
+  "type": "module",
   "directories": {
     "example": "examples"
   },

@@ -7,10 +7,20 @@ export default function display({
   cellSize = Math.min(
     canvas.width / maze.algorithm.width,
     canvas.height / maze.algorithm.height,
-  ) *
-    0.9,
-  backgroundColor = "#FFF",
-  mainColor = "#000",
+  ) 
+  *0.9
+    ,
+  backgroundColor = "#000",
+  mainColor = "#FFF",
+
+  // backgroundColor = "rgb(22,255,39)",
+
+  // backgroundColor = "#f2f5f7",
+
+  
+  // mainColor = "#000",
+  bgImg=null,
+
   colorScheme = "rainbow",
   lineThickness = 0.35,
   antiAliasing = false,
@@ -20,6 +30,7 @@ export default function display({
   distanceFrom = maze.algorithm.start,
   removeWallsAtEntranceAndExit = true,
   lineCap = "square",
+  solutionCb=()=>{},
 }) {
   if (!canvas) {
     console.error("Tried to display maze without a canvas");
@@ -91,8 +102,15 @@ export default function display({
   lineThickness = Number(lineThickness);
 
   //clear the background
-  ctx.fillStyle = backgroundColor;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+ 
+  if(bgImg){
+    // ctx.fillStyle = bgImg;
+    ctx.drawImage(bgImg,0, 0, canvas.width, canvas.height);
+  }else{
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
 
   //center the maze
   ctx.setTransform(
@@ -110,12 +128,12 @@ export default function display({
   if (!asLine) { // draw the walls
     for (let y = 0; y < maze.algorithm.height; y++) {
       for (let x = 0; x < maze.algorithm.width; x++) {
-        ctx.fillStyle = getCellColor({
-          x,
-          y,
-        });
+        // ctx.fillStyle = getCellColor({
+        //   x,
+        //   y,
+        // });
 
-        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        // ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
     }
 
@@ -185,18 +203,35 @@ export default function display({
 
     let solution = maze.getSolution();
     ctx.strokeStyle = solutionColor;
-    ctx.lineWidth = cellSize * 0.27;
+    ctx.lineWidth = cellSize * lineThickness*0.77;
     if (ctx.lineWidth < 1) ctx.lineWidth = 1;
     if (ctx.lineWidth > 10) ctx.lineWidth = 10;
 
     ctx.translate(cellSize / 2, cellSize / 2);
+
     for (let i = 0; i < solution.length - 1; i++) {
-      line(
-        solution[i].x * cellSize,
-        solution[i].y * cellSize,
-        solution[i + 1].x * cellSize,
-        solution[i + 1].y * cellSize,
-      );
+      let pre_x = solution[i].x * cellSize;
+      let pre_y =  solution[i].y * cellSize;
+      let next_x = solution[i + 1].x * cellSize;
+      let next_y = solution[i + 1].y * cellSize;
+      let j_len = 25;
+      for (let j = 1; j <= j_len; j++) {
+     
+          let diff_x = (next_x-pre_x)*((1/j_len)*j)+pre_x;
+          let diff_y = (next_y-pre_y)*((1/j_len)*j)+pre_y;
+ 
+         line(
+          (solution[i].x * cellSize).toFixed(0),
+          (solution[i].y * cellSize).toFixed(0),
+          // solution[i + 1].x * cellSize,
+          // solution[i + 1].y * cellSize,
+          diff_x.toFixed(0),
+          diff_y.toFixed(0),
+        );
+
+        solutionCb(canvas,i,j)
+      }
+      // solutionCb(canvas,i,0)
     }
   }
 
@@ -218,6 +253,7 @@ export default function display({
       ] = exitWallBefore;
     }
   }
+  console.log("finishedGenerating")
 
   //reset transformation matrix
   ctx.setTransform(1, 0, 0, 1, 0, 0);

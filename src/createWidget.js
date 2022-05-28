@@ -1,9 +1,9 @@
 import { Maze } from "./Maze.js";
-
+import fetch from "node-fetch";
 //Node doesn't have a fetch function so we need to fix that
-if (typeof window === "undefined") {
-  globalThis.fetch = globalThis.fetch ?? require("node-fetch");
-}
+// if (typeof window === "undefined") {
+//   globalThis.fetch = globalThis.fetch ?? require("node-fetch");
+// }
 
 export default function createWidget(
   mazeSettings = {},

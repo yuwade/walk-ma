@@ -222,7 +222,19 @@ class Algorithm {
       case "west middle":
         XYPosition = {
           x: 0,
-          y: Math.floor(this.width / 2),
+          y: Math.floor(this.height / 2),
+        };
+        break;
+      case "left top":
+        XYPosition = {
+          x: 0,
+          y: 1,
+        };
+        break;
+      case "right bottom":
+        XYPosition = {
+          x: this.width-1,
+          y: this.height - 2,
         };
         break;
       case "random":

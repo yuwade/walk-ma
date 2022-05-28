@@ -5,8 +5,10 @@ export default function solve(
   startPoint = "top left",
   endPoint = "bottom right",
 ) {
+  console.log(startPoint,endPoint)
   startPoint = maze.algorithm.getXYPosition(startPoint);
   endPoint = maze.algorithm.getXYPosition(endPoint);
+  console.log(startPoint,endPoint)
   let { distances, maxDistance } = maze.getDistances(startPoint);
 
   startPoint = {
